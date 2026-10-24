@@ -1,6 +1,6 @@
 import streamlit as st
 
-from dashboard.api_client import API_BASE_URL, ApiClientError, get_json
+from api_client import API_BASE_URL, ApiClientError, get_json
 
 st.set_page_config(page_title="CrimeVision AI", layout="wide")
 
