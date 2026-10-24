@@ -1,6 +1,12 @@
 import streamlit as st
 
-from dashboard.api_client import ApiClientError, case_label, list_cases, post_json, request_api
+from dashboard.api_client import (
+    ApiClientError,
+    case_label,
+    list_cases,
+    post_json,
+    request_api,
+)
 
 st.set_page_config(page_title="Upload | CrimeVision AI", layout="wide")
 st.title("Cases and evidence")
