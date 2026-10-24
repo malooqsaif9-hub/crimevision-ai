@@ -1,4 +1,3 @@
-```python
 import sys
 from pathlib import Path
 from contextlib import asynccontextmanager
@@ -133,4 +132,4 @@ app.include_router(timeline_router)
 app.include_router(chat_router)
 app.include_router(reports_router)
 app.include_router(cases_router)
-```
+
