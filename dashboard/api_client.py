@@ -7,7 +7,8 @@ import httpx
 from dotenv import load_dotenv
 
 load_dotenv()
-API_BASE_URL = os.getenv("CRIMEVISION_API_URL", "http://127.0.0.1:8000").rstrip("/")
+
+API_BASE_URL = os.getenv("CRIMEVISION_API_URL", "").strip().rstrip("/")
 
 
 class ApiClientError(RuntimeError):
@@ -15,6 +16,12 @@ class ApiClientError(RuntimeError):
 
 
 def request_api(method: str, path: str, **kwargs: Any) -> httpx.Response:
+    if not API_BASE_URL:
+        raise ApiClientError(
+            "CrimeVision API URL is not configured. "
+            "Set CRIMEVISION_API_URL to your deployed FastAPI backend URL."
+        )
+
     try:
         response = httpx.request(
             method,
@@ -32,7 +39,11 @@ def request_api(method: str, path: str, **kwargs: Any) -> httpx.Response:
             detail = response.json().get("detail", response.text)
         except ValueError:
             detail = response.text
-        raise ApiClientError(f"API returned {response.status_code}: {detail}")
+
+        raise ApiClientError(
+            f"API returned {response.status_code}: {detail}"
+        )
+
     return response
 
 
