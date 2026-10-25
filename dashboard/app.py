@@ -1,12 +1,20 @@
-import streamlit as st
 
 import sys
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+import streamlit as st
 
+# Add the project root to Python's import path
+ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
+
+# Import the API client functions and variables
+from dashboard.api_client import (
+    API_BASE_URL,
+    ApiClientError,
+    get_json,
+)
 
 st.set_page_config(page_title="CrimeVision AI", layout="wide")
 
@@ -36,4 +44,5 @@ try:
     st.success(f"API connected: {health['app']} at {API_BASE_URL}")
 except ApiClientError as exc:
     st.error(str(exc))
-    st.code("python -m uvicorn app.main:app --reload")
+    st.caption("Make sure the FastAPI backend is running and reachable.")
+
